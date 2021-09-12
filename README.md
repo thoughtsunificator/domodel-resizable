@@ -1,4 +1,4 @@
-# domodel-resizable
+# domodel-resizable [![Build Status](https://travis-ci.com/thoughtsunificator/domodel-resizable.svg?branch=master)](https://travis-ci.com/thoughtsunificator/domodel-resizable)
 
 Resizable system for [domodel](https://github.com/thoughtsunificator/domodel).
 
