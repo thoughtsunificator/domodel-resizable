@@ -1,0 +1,31 @@
+{
+	"name": "@domodel/resizable",
+	"description": "Resizable element for domodel",
+	"version": "1.0.0",
+	"type": "module",
+	"main": "index.js",
+	"devDependencies": {
+		"docdash": "^1.2.0",
+		"eslint": "^7.0.0",
+		"jsdoc": "^3.6.7",
+		"jsdom": "^17.0.0",
+		"nodeunit-esm": "^1.0.3"
+	},
+	"scripts": {
+		"test": "nodeunit-esm",
+		"generate-docs": "jsdoc --configure .jsdoc.json --verbose",
+		"lint": "eslint src/**/*.js"
+	},
+	"dependencies": {
+		"domodel": "^1.0.9"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/thoughtsunificator/domodel-resizable.git"
+	},
+	"bugs": {
+		"url": "https://github.com/thoughtsunificator/domodel-resizable/issues"
+	},
+	"author": "Romain Lebesle <oss@thoughtsunificator.me> (https://thoughtsunificator.me)",
+	"license": "MIT"
+}
