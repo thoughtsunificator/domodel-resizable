@@ -36,11 +36,11 @@ import { Resizable, ResizableModel, ResizableBinding } from "@domodel/resizable"
 
 export default class extends Binding {
 
-	async onCreated() {
+	onCreated() {
 
 		const resizable = new Resizable()
 
-		resizable.listen("size set", data => {
+		this.listen(resizable, "size set", data => {
 			this.root.style.width = data.width + "px"
 			this.root.style.height = data.height + "px"
 		})
