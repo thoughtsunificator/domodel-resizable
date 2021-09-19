@@ -1,3 +1,4 @@
+import assert from "assert"
 import { JSDOM } from "jsdom"
 import { Core, Binding } from "domodel"
 
@@ -10,19 +11,19 @@ const { document } = window
 const RootModel = { tagName: "div" }
 let rootBinding
 
-export function setUp(callback) {
-	rootBinding = new Binding()
-	Core.run(RootModel, { parentNode: document.body, binding: rootBinding })
-	callback()
-}
+describe("resizable.binding", () => {
 
-export function tearDown(callback) {
-	rootBinding.remove()
-	callback()
-}
+	beforeEach(() => {
+		rootBinding = new Binding()
+		Core.run(RootModel, { parentNode: document.body, binding: rootBinding })
+	})
 
-export function instance(test) {
-	test.expect(1)
-	test.ok(new ResizableBinding() instanceof Binding)
-	test.done()
-}
+	afterEach(() => {
+		rootBinding.remove()
+	})
+
+	it("instance", () => {
+		assert.ok(new ResizableBinding() instanceof Binding)
+	})
+
+})
