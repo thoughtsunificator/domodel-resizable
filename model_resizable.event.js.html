@@ -3,7 +3,7 @@
 <head>
     
     <meta charset="utf-8">
-    <title>Home - Documentation</title>
+    <title>model/resizable.event.js - Documentation</title>
     
     
     <script src="scripts/prettify/prettify.js"></script>
@@ -34,80 +34,91 @@
 
 <div id="main">
     
+    <h1 class="page-title">model/resizable.event.js</h1>
+    
 
     
 
 
 
     
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { EventListener } from "domodel"
 
+/**
+ * @global
+ */
+class ResizableEventListener extends EventListener {
 
-    <section class="package">
-        <h3> </h3>		
-    </section>
+	/**
+	 * @event ResizableEventListener#sizeSet
+	 * @property {object} size
+	 * @property {number} size.width
+	 * @property {number} size.height
+	 */
 
+	/**
+	 * @event ResizableEventListener#resizeUpdate
+	 * @property {object} size
+	 * @property {number} size.width
+	 * @property {number} size.height
+	 */
 
+	/**
+	 * @event ResizableEventListener#resizeEnable
+	 */
+	resizeEnable() {
+		const { resizable } = this.properties
+		resizable.enabled = true
+	}
 
+	/**
+	 * @event ResizableEventListener#resizableDisable
+	 */
+	resizeDisable() {
+		const { resizable } = this.properties
+		resizable.enabled = false
+		resizable.resizing = false
+	}
 
+	/**
+	 * @event ResizableEventListener#resizeStartdata
+	 * @property {object} data
+	 * @property {number} data.x
+	 * @property {number} data.y
+	 * @property {string} data.direction
+	 */
+	resizeStart(data) {
+		const { resizable } = this.properties
+		resizable.resizing = true
+		resizable.x = data.x
+		resizable.y = data.y
+		resizable.direction = data.direction
+		this.root.parentNode.style.userSelect = "none"
+	}
 
-
-
-
-
-    
-
-
-
-    <section class="readme usertext">
-        <article><h1 id="domodel-resizable">domodel-resizable</h1>
-<p>Resizable system for <a href="https://github.com/thoughtsunificator/domodel">domodel</a>.</p>
-<h2 id="getting-started">Getting started</h2>
-<h3 id="prerequisites">Prerequisites</h3>
-<ul>
-<li><a href="https://github.com/thoughtsunificator/domodel">domodel</a></li>
-</ul>
-<h3 id="installing">Installing</h3>
-<ul>
-<li><code>npm install @domodel/resizable</code></li>
-</ul>
-<h3 id="usage">Usage</h3>
-<p><code>src/model/image.js</code></p>
-<pre class="prettyprint source lang-javascript"><code>export default {
-	tagName: &quot;div&quot;,
-	style: &quot;position: relative; display: inline-block&quot;,
-	children: [
-		{
-			tagName: &quot;img&quot;,
-			style: &quot;width: 100%; height: 100%&quot;,
-			src: &quot;yourimageurl&quot;
-		}
-	]
-}
-</code></pre>
-<p><code>src/binding/image.js</code></p>
-<pre class="prettyprint source lang-javascript"><code>import { Core, Observable, Binding } from &quot;domodel&quot;
-import { Resizable, ResizableModel, ResizableBinding } from &quot;@domodel/resizable&quot;
-
-export default class extends Binding {
-
-	onCreated() {
-
-		const resizable = new Resizable()
-
-		this.listen(resizable, &quot;size set&quot;, data => {
-			this.root.style.width = data.width + &quot;px&quot;
-			this.root.style.height = data.height + &quot;px&quot;
-		})
-
-		Core.run(ResizableModel, { binding: new ResizableBinding({ resizable, preview: true, directions: [&quot;horizontal&quot;, &quot;vertical&quot;, &quot;diagonal&quot;] }) })
-
+	/**
+	 * @event ResizableEventListener#resizeEnddata
+	 * @property {object} data
+	 * @property {number} data.x
+	 * @property {number} data.y
+	 */
+	resizeEnd(data) {
+		const { resizable } = this.properties
+		resizable.resizing = false
+		resizable.x = data.x
+		resizable.y = data.y
+		resizable.emit("sizeSet", resizable.size)
+		this.root.parentNode.style.userSelect = ""
 	}
 
 }
-</code></pre></article>
+
+export default ResizableEventListener
+</code></pre>
+        </article>
     </section>
-
-
 
 
 

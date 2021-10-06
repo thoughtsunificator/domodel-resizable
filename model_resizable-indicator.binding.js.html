@@ -3,7 +3,7 @@
 <head>
     
     <meta charset="utf-8">
-    <title>Home - Documentation</title>
+    <title>model/resizable-indicator.binding.js - Documentation</title>
     
     
     <script src="scripts/prettify/prettify.js"></script>
@@ -34,80 +34,73 @@
 
 <div id="main">
     
+    <h1 class="page-title">model/resizable-indicator.binding.js</h1>
+    
 
     
 
 
 
     
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { Binding } from "domodel"
 
+/**
+ * @global
+ */
+class ResizableIndicatorBinding extends Binding {
 
-    <section class="package">
-        <h3> </h3>		
-    </section>
-
-
-
-
-
-
-
-
-
-    
-
-
-
-    <section class="readme usertext">
-        <article><h1 id="domodel-resizable">domodel-resizable</h1>
-<p>Resizable system for <a href="https://github.com/thoughtsunificator/domodel">domodel</a>.</p>
-<h2 id="getting-started">Getting started</h2>
-<h3 id="prerequisites">Prerequisites</h3>
-<ul>
-<li><a href="https://github.com/thoughtsunificator/domodel">domodel</a></li>
-</ul>
-<h3 id="installing">Installing</h3>
-<ul>
-<li><code>npm install @domodel/resizable</code></li>
-</ul>
-<h3 id="usage">Usage</h3>
-<p><code>src/model/image.js</code></p>
-<pre class="prettyprint source lang-javascript"><code>export default {
-	tagName: &quot;div&quot;,
-	style: &quot;position: relative; display: inline-block&quot;,
-	children: [
-		{
-			tagName: &quot;img&quot;,
-			style: &quot;width: 100%; height: 100%&quot;,
-			src: &quot;yourimageurl&quot;
-		}
-	]
-}
-</code></pre>
-<p><code>src/binding/image.js</code></p>
-<pre class="prettyprint source lang-javascript"><code>import { Core, Observable, Binding } from &quot;domodel&quot;
-import { Resizable, ResizableModel, ResizableBinding } from &quot;@domodel/resizable&quot;
-
-export default class extends Binding {
+	/**
+	 * @param {object}    properties
+	 * @param {Resizable} properties.resizable
+	 * @param {string}    properties.direction
+	 */
+	constructor(properties) {
+		super(properties)
+	}
 
 	onCreated() {
 
-		const resizable = new Resizable()
+		const { resizable, direction } = this.properties
 
-		this.listen(resizable, &quot;size set&quot;, data => {
-			this.root.style.width = data.width + &quot;px&quot;
-			this.root.style.height = data.height + &quot;px&quot;
+		if(!resizable.enabled) {
+			this.root.style.display = "none"
+		}
+
+		this.listen(resizable, "resizeDisable", () => {
+			this.root.style.display = "none"
 		})
 
-		Core.run(ResizableModel, { binding: new ResizableBinding({ resizable, preview: true, directions: [&quot;horizontal&quot;, &quot;vertical&quot;, &quot;diagonal&quot;] }) })
+		this.listen(resizable, "resizeEnable", () => {
+			this.root.style.display = ""
+		})
+
+		this.root.classList.remove("horizontal")
+		this.root.classList.remove("vertical")
+		this.root.classList.remove("diagonal")
+
+		if(direction === "horizontal") {
+			this.root.classList.add("horizontal")
+		} else if(direction === "vertical") {
+			this.root.classList.add("vertical")
+		} else if(direction === "diagonal") {
+			this.root.classList.add("diagonal")
+		}
+
+		this.root.addEventListener("mousedown", (event) => {
+			if(resizable.enabled) {
+				resizable.emit("resizeStart", { direction, x: event.clientX, y: event.clientY})
+			}
+		})
 
 	}
-
 }
-</code></pre></article>
+
+export default ResizableIndicatorBinding
+</code></pre>
+        </article>
     </section>
-
-
 
 
 
