@@ -6,40 +6,26 @@ import ResizablePreviewModel from "./resizable-preview.js"
 import ResizableIndicatorBinding from "./resizable-indicator.binding.js"
 import ResizablePreviewBinding from "./resizable-preview.binding.js"
 
-export default class extends Binding {
+/**
+ * @global
+ */
+class ResizableBinding extends Binding {
+
+	/**
+	 * @param {object}    properties
+	 * @param {Resizable} properties.resizable
+	 */
+	constructor(properties) {
+		super(properties, new ResizableEventListener(properties.resizable))
+	}
 
 	onCreated() {
 
 		const { resizable } = this.properties
 
-		this.listen(resizable, "resize disable", () => {
-			resizable.enabled = false
-			resizable.resizing = false
-		})
-
-		this.listen(resizable, "resize enable", () => {
-			resizable.enabled = true
-		})
-
-		this.listen(resizable, "resize end", data => {
-			resizable.resizing = false
-			resizable.x = data.x
-			resizable.y = data.y
-			resizable.emit("size set", resizable.size)
-			this.root.parentNode.style.userSelect = ""
-		})
-
-		this.listen(resizable, "resize start", data => {
-			resizable.resizing = true
-			resizable.x = data.x
-			resizable.y = data.y
-			resizable.direction = data.direction
-			this.root.parentNode.style.userSelect = "none"
-		})
-
 		this.root.ownerDocument.addEventListener("mouseup", (event) => {
 			if(resizable.resizing === true) {
-				resizable.emit("resize end", { x: event.clientX, y: event.clientY })
+				resizable.emit("resizeEnd", { x: event.clientX, y: event.clientY })
 			}
 		})
 
@@ -59,7 +45,7 @@ export default class extends Binding {
 					height = rect.height + diffY
 				}
 				resizable.size = { width, height }
-				resizable.emit("resize update", { width, height })
+				resizable.emit("resizeUpdate", { width, height })
 			}
 		})
 	}
@@ -79,3 +65,5 @@ export default class extends Binding {
 	}
 
 }
+
+export default ResizableBinding

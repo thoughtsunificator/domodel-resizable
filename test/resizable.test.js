@@ -6,7 +6,7 @@ import { Resizable } from "../index.js"
 describe("resizable", () => {
 
 	it("instance", () => {
-		assert.ok(new Resizable() instanceof Observable)
+		assert.ok(Resizable.prototype instanceof Observable)
 	})
 
 })

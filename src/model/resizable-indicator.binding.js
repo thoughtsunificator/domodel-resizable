@@ -1,6 +1,18 @@
 import { Binding } from "domodel"
 
-export default class extends Binding {
+/**
+ * @global
+ */
+class ResizableIndicatorBinding extends Binding {
+
+	/**
+	 * @param {object}    properties
+	 * @param {Resizable} properties.resizable
+	 * @param {string}    properties.direction
+	 */
+	constructor(properties) {
+		super(properties)
+	}
 
 	onCreated() {
 
@@ -10,11 +22,11 @@ export default class extends Binding {
 			this.root.style.display = "none"
 		}
 
-		this.listen(resizable, "resize disable", () => {
+		this.listen(resizable, "resizeDisable", () => {
 			this.root.style.display = "none"
 		})
 
-		this.listen(resizable, "resize enable", () => {
+		this.listen(resizable, "resizeEnable", () => {
 			this.root.style.display = ""
 		})
 
@@ -32,9 +44,11 @@ export default class extends Binding {
 
 		this.root.addEventListener("mousedown", (event) => {
 			if(resizable.enabled) {
-				resizable.emit("resize start", { direction, x: event.clientX, y: event.clientY})
+				resizable.emit("resizeStart", { direction, x: event.clientX, y: event.clientY})
 			}
 		})
 
 	}
 }
+
+export default ResizableIndicatorBinding

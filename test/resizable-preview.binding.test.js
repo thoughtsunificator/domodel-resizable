@@ -23,7 +23,7 @@ describe("resizable-preview.binding", () => {
 	})
 
 	it("instance", () => {
-		assert.ok(new ResizablePreviewBinding() instanceof Binding)
+		assert.ok(ResizablePreviewBinding.prototype instanceof Binding)
 	})
 
 })
