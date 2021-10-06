@@ -4,10 +4,6 @@ Resizable system for [domodel](https://github.com/thoughtsunificator/domodel).
 
 ## Getting started
 
-### Prerequisites
-
-- [domodel](https://github.com/thoughtsunificator/domodel)
-
 ### Installing
 
 - ``npm install @domodel/resizable``
