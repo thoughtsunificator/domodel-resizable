@@ -51,20 +51,3 @@ export default class extends Binding {
 
 }
 ````
-
-Note that you might have to use appropriate styling depending on the element you wish to be resizable.
-
-### Events
-
-| Name      | Target | Description      
-| ---------- |-------------|---------
-| resize start | Resizable | Resizing started.
-| resize end   | Resizable   | Resizing ended.
-| resize update  | Resizable  | Size of the area changed.   
-| size set  | Resizable | Resizing ended. New size is given.  
-| resizable enable  | Resizable | Enable resizing.
-| resizable disable  | Resizable | Disable resizing.
-
-### Demo
-
-See [https://github.com/thoughtsunificator/domodel-resizable-demo](https://github.com/thoughtsunificator/domodel-resizable-demo).

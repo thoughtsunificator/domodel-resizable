@@ -1,8 +1,7 @@
-/** @module resizable */
 import { Observable } from "domodel"
 
 /**
- * @memberof: module:resizable
+ * @global
  */
 class Resizable extends Observable {
 
@@ -20,7 +19,7 @@ class Resizable extends Observable {
 	}
 
 	/**
-	 * @returns {boolean}
+	 * @type {boolean}
 	 */
 	get enabled() {
 		return this._enabled
@@ -31,7 +30,7 @@ class Resizable extends Observable {
 	}
 
 	/**
-	 * @returns {boolean}
+	 * @type {boolean}
 	 */
 	get resizing() {
 		return this._resizing
@@ -42,7 +41,7 @@ class Resizable extends Observable {
 	}
 
 	/**
-	 * @returns {string}
+	 * @type {string}
 	 */
 	get direction() {
 		return this._direction
@@ -53,7 +52,7 @@ class Resizable extends Observable {
 	}
 
 	/**
-	 * @returns {number}
+	 * @type {number}
 	 */
 	get x() {
 		return this._x
@@ -64,7 +63,7 @@ class Resizable extends Observable {
 	}
 
 	/**
-	 * @returns {number}
+	 * @type {number}
 	 */
 	get y() {
 		return this._y
@@ -75,7 +74,7 @@ class Resizable extends Observable {
 	}
 
 	/**
-	 * @returns {object}
+	 * @type {object}
 	 */
 	get size() {
 		return this._size

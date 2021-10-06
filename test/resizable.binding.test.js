@@ -23,7 +23,7 @@ describe("resizable.binding", () => {
 	})
 
 	it("instance", () => {
-		assert.ok(new ResizableBinding() instanceof Binding)
+		assert.ok(ResizableBinding.prototype instanceof Binding)
 	})
 
 })

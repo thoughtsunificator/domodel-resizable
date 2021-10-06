@@ -1,6 +1,17 @@
 import { Binding } from "domodel"
 
-export default class extends Binding {
+/**
+ * @global
+ */
+class ResizablePreviewBinding extends Binding {
+
+	/**
+	 * @param {object}    properties
+	 * @param {Resizable} properties.resizable
+	 */
+	constructor(properties) {
+		super(properties)
+	}
 
 	onCreated() {
 
@@ -10,19 +21,19 @@ export default class extends Binding {
 			this.root.style.display = "none"
 		}
 
-		this.listen(resizable, "resize disable", () => {
+		this.listen(resizable, "resizeDisable", () => {
 			this.root.style.display = "none"
 		})
 
-		this.listen(resizable, "resize enable", () => {
+		this.listen(resizable, "resizeEnable", () => {
 			this.root.style.display = ""
 		})
 
-		this.listen(resizable, "resize end", () => {
+		this.listen(resizable, "resizeEnd", () => {
 			this.root.style.display = "none"
 		})
 
-		this.listen(resizable, "resize update", data => {
+		this.listen(resizable, "resizeUpdate", data => {
 			this.root.style.display = ""
 			this.root.style.display = "block"
 			this.root.style.width = data.width + "px"
@@ -31,10 +42,12 @@ export default class extends Binding {
 
 		this.root.ownerDocument.addEventListener("mouseup", (event) => {
 			if(resizable.resizing === true) {
-				resizable.emit("resize end", { x: event.clientX, y: event.clientY })
+				resizable.emit("resizeEnd", { x: event.clientX, y: event.clientY })
 			}
 		})
 
 	}
 
 }
+
+export default ResizablePreviewBinding
